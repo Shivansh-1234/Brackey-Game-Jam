@@ -20,6 +20,7 @@ public class enemiesScript : MonoBehaviour
     private void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+        InvokeRepeating("SpawnEnemy", 3f, 5f);
 
 /*        if (currentTime == 0)
         {
@@ -48,12 +49,15 @@ public class enemiesScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Destroy(this.gameObject);
+        if(collision.collider.tag == "Bullet")
+        {
+            Destroy(this.gameObject);
+        }
+        
     }
 
     void SpawnEnemy()
     {
-        Spawned = true;
         Instantiate(this.gameObject, startPos);
     }
 }
